@@ -1,7 +1,7 @@
 import pandas as pd
 
 # We can use the pandas library in python to read in the csv file.
-# This creates a pandas dataframe and assigns it to the titanic variable.
+# This creates a pandas dataframe and assigns it to the assigned variables.
 titanic = pd.read_csv("../datasets/train.csv")
 titanic_test = pd.read_csv("../datasets/test.csv")
 
@@ -47,36 +47,3 @@ titanic_test["Embarked"] = titanic_test["Embarked"].fillna("S")
 titanic_test.loc[titanic_test["Embarked"] == "S", "Embarked"] = 0
 titanic_test.loc[titanic_test["Embarked"] == "C", "Embarked"] = 1
 titanic_test.loc[titanic_test["Embarked"] == "Q", "Embarked"] = 2
-
-
-# On to machine learning
-# Import the linear regression class
-from sklearn.cross_validation import cross_val_score
-from sklearn.metrics import accuracy_score as acc
-from sklearn.linear_model import LogisticRegression as lg
-import numpy as np
-
-# The columns we'll use to predict the target
-predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
-
-# Initialize our algorithm class
-alg = lg()
-model = alg.fit(titanic[predictors], titanic["Survived"])
-
-train_predictors = titanic[predictors]
-
-# The target we're using to train the algorithm.
-train_target = titanic["Survived"]
-
-scores = cross_val_score(model, train_predictors, train_target, cv=10)
-
-print scores.mean()
-
-predictions = alg.predict(titanic_test[predictors])
-print predictions
-
-# Create a new dataframe with only the columns Kaggle wants from the dataset.
-submission = pd.DataFrame({
-        "PassengerId": titanic_test["PassengerId"],
-        "Survived": predictions
-    })
