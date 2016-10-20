@@ -1,41 +1,34 @@
 import pandas as pd
-from sklearn import cross_validation
-from sklearn.linear_model import LogisticRegression as lg
-from sklearn.metrics import accuracy_score as acc
 
 # We can use the pandas library in python to read in the csv file.
 # This creates a pandas dataframe and assigns it to the titanic variable.
-titanic = pd.read_csv("train.csv")
-titanic_test = pd.read_csv("test.csv")
-#print first 5 rows
-# print(titanic.head(5))
-# print(titanic.describe())
+titanic = pd.read_csv("../datasets/train.csv")
+titanic_test = pd.read_csv("../datasets/test.csv")
 
-            # """Cleaning up our training data sets"""
-# The titanic variable is available here.
+#print first 5 rows
+print(titanic.head(5))
+print(titanic.describe())
+
+# replace missing age columns wiht the mean of the total age of the passengers
 titanic["Age"] = titanic["Age"].fillna(titanic["Age"].median())
-#print(titanic.describe())
+print(titanic.describe())
 
 # Find all the unique genders -- the column appears to contain only male and female.
-# print(titanic["Sex"].unique())
+print(titanic["Sex"].unique())
 
-# Replace all the occurences of male with the number 0.
+# refactor the gender column into readable format for building our model.
 titanic.loc[titanic["Sex"] == "male", "Sex"] = 0
 titanic.loc[titanic["Sex"] == "female", "Sex"] = 1
 
 # Find all the unique values for "Embarked".
-# print(titanic["Embarked"].unique())
+print(titanic["Embarked"].unique())
 titanic["Embarked"] = titanic["Embarked"].fillna("S")
 
 titanic.loc[titanic["Embarked"] == "S", "Embarked"] = 0
 titanic.loc[titanic["Embarked"] == "C", "Embarked"] = 1
 titanic.loc[titanic["Embarked"] == "Q", "Embarked"] = 2
 
-# The columns we'll use to predict the target
-predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
-
-                    # """Cleaning up our test data sets"""
-titanic_test = pd.read_csv("test.csv")
+                    # cleaning up our test datasets
 
 #replace missing age coulmns with the median of the age
 titanic_test["Age"] = titanic_test["Age"].fillna(titanic["Age"].median())
@@ -55,19 +48,35 @@ titanic_test.loc[titanic_test["Embarked"] == "S", "Embarked"] = 0
 titanic_test.loc[titanic_test["Embarked"] == "C", "Embarked"] = 1
 titanic_test.loc[titanic_test["Embarked"] == "Q", "Embarked"] = 2
 
-                        # """Let's build our model"""
 
-# splitting my arrays in ratio of 30:70 percent
-features_train, features_test, labels_train, labels_test = cross_validation.train_test_split(titanic[predictors], titanic['Survived'], test_size=0.3, random_state=0)
-print len(features_train)
-print len(features_test)
-# print features_test
-# Initialize the algorithm class
-alg = lg(random_state=1).fit(features_train, labels_train)
-print(alg)
-prob_predictions_class_test = alg.predict(titanic_test[predictors])
-print len(titanic_test[predictors])
-print len(labels_test)
+# On to machine learning
+# Import the linear regression class
+from sklearn.cross_validation import cross_val_score
+from sklearn.metrics import accuracy_score as acc
+from sklearn.linear_model import LogisticRegression as lg
+import numpy as np
 
-# accuracy = acc(labels_test, prob_predictions_class_test, normalize=True,sample_weight=None)
-# print 'accuracy', accuracy
+# The columns we'll use to predict the target
+predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
+
+# Initialize our algorithm class
+alg = lg()
+model = alg.fit(titanic[predictors], titanic["Survived"])
+
+train_predictors = titanic[predictors]
+
+# The target we're using to train the algorithm.
+train_target = titanic["Survived"]
+
+scores = cross_val_score(model, train_predictors, train_target, cv=10)
+
+print scores.mean()
+
+predictions = alg.predict(titanic_test[predictors])
+print predictions
+
+# Create a new dataframe with only the columns Kaggle wants from the dataset.
+submission = pd.DataFrame({
+        "PassengerId": titanic_test["PassengerId"],
+        "Survived": predictions
+    })
