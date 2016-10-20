@@ -1,7 +1,7 @@
 import pandas as pd
 
 # We can use the pandas library in python to read in the csv file.
-# This creates a pandas dataframe and assigns it to the titanic variable.
+# This creates a pandas dataframe and assigns it to the assigned variables.
 titanic = pd.read_csv("../datasets/train.csv")
 titanic_test = pd.read_csv("../datasets/test.csv")
 
