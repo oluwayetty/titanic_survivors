@@ -53,7 +53,7 @@ titanic_test.loc[titanic_test["Embarked"] == "Q", "Embarked"] = 2
 from sklearn.linear_model import LogisticRegression as lg
 from sklearn.cross_validation import cross_val_score
 from sklearn.metrics import accuracy_score as acc
-import numpy as np
+# import numpy as np
 
 # The columns we'll use to predict the target
 predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
@@ -79,3 +79,6 @@ submission = pd.DataFrame({
         "PassengerId": titanic_test["PassengerId"],
         "Survived": predictions
     })
+
+#writing our submission to csv.
+submission.to_csv('../predictions.csv', sep='\t', encoding='utf-8')
