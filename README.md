@@ -4,8 +4,8 @@
 
 ```datasets folder contains the training sets and test sets```
 
-``` scripts folder contains the two different classifiers explored in making predictions to these datasets```
+``` scripts folder contains the two different classifiers(LogisticRegression and RandomForestClassifier) used in making predictions to these datasets```
 
-```submission.csv is the predictions made from the datasets in a CSV format with two columns: t_id and probability. The prediction column is the chance of survivor of each passenger on the ship.```
+```predictions.csv is the predictions made from the datasets in a CSV format with two columns: t_id and probability. The prediction column is the chance of survivor of each passenger on the ship.```
 
 I built a model for the datasets using two different classifiers from scikit-learn. Read the blog post [here](no link yet)
