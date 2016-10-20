@@ -6,6 +6,6 @@
 
 ``` scripts folder contains the two different classifiers(LogisticRegression and RandomForestClassifier) used in making predictions to these datasets```
 
-```predictions.csv is the predictions made from the datasets in a CSV format with two columns: t_id and probability. The prediction column is the chance of survivor of each passenger on the ship.```
+```predictions.csv is the predictions made from the datasets in a CSV format with two columns: PassengerId and Survived column. The survived column is the chance of survivor of each passenger on the ship. 1 means the passenger survived while 0 means otherwise :(```
 
 I built a model for the datasets using two different classifiers from scikit-learn. Read the blog post [here](no link yet)
