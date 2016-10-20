@@ -81,4 +81,4 @@ submission = pd.DataFrame({
     })
 
 #writing our submission to csv.
-submission.to_csv('../predictions.csv', sep='\t', encoding='utf-8')
+submission.to_csv('../predictions.csv', sep=',', encoding='utf-8', index = False)
