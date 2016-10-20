@@ -47,3 +47,35 @@ titanic_test["Embarked"] = titanic_test["Embarked"].fillna("S")
 titanic_test.loc[titanic_test["Embarked"] == "S", "Embarked"] = 0
 titanic_test.loc[titanic_test["Embarked"] == "C", "Embarked"] = 1
 titanic_test.loc[titanic_test["Embarked"] == "Q", "Embarked"] = 2
+
+
+                    # On to machine learning(building our model)
+from sklearn.linear_model import LogisticRegression as lg
+from sklearn.cross_validation import cross_val_score
+from sklearn.metrics import accuracy_score as acc
+import numpy as np
+
+# The columns we'll use to predict the target
+predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
+
+# Initialize our algorithm class
+alg = lg()
+model = alg.fit(titanic[predictors], titanic["Survived"])
+
+train_predictors = titanic[predictors]
+
+# The target we're using to train the algorithm.
+train_target = titanic["Survived"]
+
+scores = cross_val_score(model, train_predictors, train_target, cv=10)
+print scores
+print scores.mean()
+
+predictions = alg.predict(titanic_test[predictors])
+print predictions
+
+# Create a new dataframe with only the columns Kaggle wants from the dataset.
+submission = pd.DataFrame({
+        "PassengerId": titanic_test["PassengerId"],
+        "Survived": predictions
+    })
