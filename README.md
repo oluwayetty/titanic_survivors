@@ -1,6 +1,6 @@
 # predicting titanic survivors.
 
-[Titanic](https://en.wikipedia.org/wiki/RMS_Titanic) RMS Titanic was a British passenger liner that sank in the North Atlantic Ocean in the early morning of 15 April 1912, after colliding with an iceberg during her maiden voyage from Southampton to New York City. Of the 2,224 passengers and crew aboard, more than 1,500 died in the sinking, making it one of the deadliest commercial peacetime maritime disasters in modern history.
+[Titanic](https://en.wikipedia.org/wiki/RMS_Titanic) RMS Titanic was a British passenger liner that sank in the North Atlantic Ocean in the early morning of 15 April 1912, after colliding with an iceberg during her maiden voyage from Southampton to New York City. Of the 2,224 passengers and crew aboard, more than 1,500 died in the sinking, making it one of the deadliest commercial peacetime maritime disasters in modern history. Read [more](http://www.history.com/topics/titanic)
 
 Below is a brief details about each column:
 
