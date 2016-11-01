@@ -48,7 +48,6 @@ titanic_test.loc[titanic_test["Embarked"] == "S", "Embarked"] = 0
 titanic_test.loc[titanic_test["Embarked"] == "C", "Embarked"] = 1
 titanic_test.loc[titanic_test["Embarked"] == "Q", "Embarked"] = 2
 
-
                     # On to machine learning(building our model)
 from sklearn.linear_model import LogisticRegression as lg
 from sklearn.cross_validation import cross_val_score
